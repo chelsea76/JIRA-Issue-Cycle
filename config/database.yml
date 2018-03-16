@@ -1,0 +1,8 @@
+development: &development
+ adapter: mysql2
+ strict: false
+ database: alsumi_dev
+ username: root
+ host: localhost
+ password:
+ socket: /private/tmp/mysql.sock
