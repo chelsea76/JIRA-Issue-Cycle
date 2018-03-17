@@ -1,13 +1,21 @@
 class IssueStatusCycle < Dry::Struct
-  attribute :issue_id, Types::String
+  constructor_type :schema
+
+  attribute :issue, Types::Class
 
   BASE_URL = ENV["ATLASSIAN_HOST"].freeze
 
   def call
-    url = BASE_URL + "/rest/api/2/issue/#{issue_id}?expand=changelog"
+    url = BASE_URL + "/rest/api/2/issue/#{issue.id}?expand=changelog"
     result = RestClient.get(url, headers)
     result = JSON.parse(result)
-    build_status_tracker(result)
+    build_issue(result)
+  end
+
+  def build_issue(result)
+    issue.subtasks = result["fields"]["subtasks"].inject([]){|res, st| res << st["key"]; res}
+    issue.cycle = build_status_tracker(result)
+    issue
   end
 
   def build_status_tracker(result)

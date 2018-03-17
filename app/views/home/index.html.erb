@@ -2,13 +2,13 @@
   <h3>Issue Status Cycle</h3>
   <%= form_tag() do %>
     <label>Please enter JIRA Issue for which you want to see status cycle time: </label>
-    <%= text_field_tag(:issue_id)%>
+    <%= text_field_tag(:id)%>
     <button type="submit" class="btn btn-primary">Submit</button>
     <p style="color:red;"><%= flash[:error] if flash[:error]%></p>
   <% end %>
-  <% if @result.present? %>
+  <% if @issue&.id.present? %>
     <div class="issue_cycle">
-      <p>Please find below status cycle for Issue : <%= params[:issue_id] %></p>
+      <p>Please find below status cycle for Issue : <%= @issue.id %></p>
       <table class="table table-striped table-bordered">
         <thead>
           <tr>
@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @result.each do |cycle| %>
+          <% @issue.cycle.each do |cycle| %>
             <tr>
               <td><%= cycle.has_key?(:to) ? "#{cycle[:from]} -> #{cycle[:to]}" : "#{cycle[:from]} till" %></td>
               <td><%= "#{cycle[:delta]}"%></td>
