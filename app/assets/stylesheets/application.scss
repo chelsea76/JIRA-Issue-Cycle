@@ -1,7 +1,18 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
-body > .container {
+body > .container, #issue_cycle {
   padding-top: 40px;
   background-color: white;
+}
+
+.spinner {
+  height: 16px;
+  width: 16px;
+  margin: auto;
+  background: url(/assets/spinner.gif) no-repeat center center !important;
+}
+
+.error {
+  color: red;
 }
