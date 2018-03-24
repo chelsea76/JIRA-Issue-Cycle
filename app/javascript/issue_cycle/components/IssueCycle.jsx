@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import WebAPIUtils from '../utils/WebAPIUtils';
 import SubTasks from './SubTasks';
+import Immutable from 'immutable';
 
 export default class IssueCycle extends Component {
 
@@ -11,7 +12,7 @@ export default class IssueCycle extends Component {
     this.renderCycleData = this.renderCycleData.bind(this);
     this.state = {
       issueId: null,
-      cycle: null,
+      cycle: Immutable.Map(),
       subTasks: null,
       error: null,
       pendingAction: false,
@@ -24,24 +25,24 @@ export default class IssueCycle extends Component {
     this.setState({ pendingAction: true})
     WebAPIUtils.get(url)
       .then((responseData) => {
-        this.setState({ cycle: responseData.cycle, subTasks: responseData.subtasks, error: null, pendingAction: false, issueChanged: true })
+        this.setState({ cycle: Immutable.fromJS(responseData.cycle), subTasks: responseData.subtasks, error: null, pendingAction: false, issueChanged: true })
       })
       .fail((errorData) => {
-        this.setState({ error: errorData.responseText, pendingAction: false, cycle: null, subtasks: null })
+        this.setState({ error: errorData.responseText, pendingAction: false, cycle: Immutable.Map(), subTasks: null })
       })
   }
 
   handleChange(event){
-    this.setState({ issueId: this.refs.issueId.value });
+    this.setState({ issueId: this.refs.issueId.value, cycle: Immutable.Map(), subTasks: null });
   }
 
   renderCycleData(){
     let cycle = []
     this.state.cycle.forEach((issue) => {
       cycle.push(
-        <tr className={issue.from + "_key"}>
-          <td>{(issue.to !== undefined) ? issue.from + ' -> ' + issue.to : issue.from}</td>
-          <td>{issue.delta}</td>
+        <tr>
+          <td>{issue.get('transition')}</td>
+          <td>{issue.get("delta")}</td>
         </tr>
       )
     })
@@ -65,7 +66,7 @@ export default class IssueCycle extends Component {
 
   render(){
     let cycleData;
-    if(this.state.cycle !== null){
+    if(this.state.cycle.size !== 0){
       cycleData = this.renderCycleData();
     }
     let subTasks;

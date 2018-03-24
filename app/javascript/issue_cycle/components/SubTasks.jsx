@@ -45,8 +45,8 @@ export default class SubTasks extends Component {
     if(cycle !== undefined ){
       cycle.forEach((c) => {
         cycleValue.push(
-          <tr className={c.from + "_key"}>
-            <td>{(c.to !== undefined) ? c.from + ' -> ' + c.to : c.from}</td>
+          <tr>
+            <td>{c.transition}</td>
             <td>{c.delta}</td>
           </tr>
         )
