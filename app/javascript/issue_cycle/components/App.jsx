@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import IssueCycle from './IssueCycle';
+import Search from './Search';
 
 
 export default class App extends Component {
   render(){
-    return(<IssueCycle />)
+    return(<Search />)
   }
 }

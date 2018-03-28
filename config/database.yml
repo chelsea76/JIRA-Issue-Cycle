@@ -1,7 +1,7 @@
 development: &development
  adapter: mysql2
  strict: false
- database: alsumi_dev
+ database: jira_tracker
  username: root
  host: localhost
  password:

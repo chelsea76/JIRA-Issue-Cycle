@@ -21,7 +21,7 @@ export default class SubTasks extends Component {
 
   fetchSubtaskCycle(event){
     let taskId = event.target.text;
-    let url = "/issue_cycle?id=" + taskId;
+    let url = "/issue_cycle?subtask=" + taskId;
     let tasksCycle = this.state.tasksCycle;
     if(tasksCycle.getIn([taskId, "collapsed"]) === undefined || tasksCycle.getIn([taskId, "collapsed"])){
       WebAPIUtils.get(url)

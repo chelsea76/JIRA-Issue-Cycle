@@ -4,8 +4,13 @@ class HomeController < ApplicationController
 
   def issue_cycle
     begin
-      @issue = IssueStatusCycle.new(issue: Issue.new(id: params[:id])).call
-      render json: @issue.to_json
+      if params[:search_by] == 'issue' || params[:subtask].present?
+        @issue = IssueStatusCycle.new(issue: Issue.new(id: params[:search_value] || params[:subtask])).call
+        render json: @issue.to_json
+      elsif  params[:search_by] == 'filter'
+        @average_transition = AverageTransitionTime.new(transition_cycle: TransitionCycle.new(payload: { filter_id: params[:search_value]})).call
+        render json: @average_transition.to_json
+      end
     rescue => e
       render text: "The issue that you are trying does not exist. Please try again.", status: 400
     end
