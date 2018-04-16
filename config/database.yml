@@ -6,3 +6,6 @@ development: &development
  host: localhost
  password:
  socket: /private/tmp/mysql.sock
+production:
+  adapter: pg
+  database: jira_prod
