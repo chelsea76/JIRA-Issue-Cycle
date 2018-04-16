@@ -12,7 +12,7 @@ class HomeController < ApplicationController
         render json: @average_transition.to_json
       end
     rescue => e
-      render text: "No result found for currenct search criteria.", status: 400
+      render text: "No result found for current search criteria.", status: 400
     end
   end
 end
