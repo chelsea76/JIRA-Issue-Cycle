@@ -7,5 +7,5 @@ development: &development
  password:
  socket: /private/tmp/mysql.sock
 production:
-  adapter: pg
+  adapter: postgresql
   database: jira_prod
