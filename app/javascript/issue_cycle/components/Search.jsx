@@ -50,7 +50,7 @@ export default class Search extends Component {
     }
     return(
       <div className="container text-center">
-        <h3>Average Transition Time</h3>
+        <h3>Transition Time</h3>
         <div className="row">
           <div className="col-md-7">
             <label>Please use search to find average transition time</label>
