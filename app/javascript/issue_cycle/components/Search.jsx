@@ -67,7 +67,7 @@ export default class Search extends Component {
             <input name="value" className="form-control" onChange={this.handleInputChange} value={this.state.searchValue}/>
           </div>
           <div className="col-md-1">
-            <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
+            <button type="submit" className="btn btn-primary" onClick={this.handleSubmit} disabled={this.state.pendingAction}>Submit</button>
           </div>
         </div>  
         <div className="row">
@@ -76,6 +76,7 @@ export default class Search extends Component {
         <div className="row">
           <div className="col-md-9">
             {this.state.pendingAction && <div className="spinner"></div>}
+            {this.state.pendingAction && <p>Please wait. It may take a while to fetch data</p>}
           </div>
         </div>
         {transitionTable}
