@@ -8,10 +8,10 @@ class AverageTransitionTime < Dry::Struct
   end
 
   def average_transition_time
-    result = Search.new(payload: transition_cycle.payload).call
+    issues = Search.new(payload: transition_cycle.payload).call
     hash = {}
 
-    result["issues"].inject(hash) do |res, issue|
+    issues.inject(hash) do |res, issue|
       res[issue["key"]] = GetTransition.new(changelog: issue["changelog"], status: issue["fields"]["status"]["name"], created: issue["fields"]["created"]).call
       res
     end
@@ -36,7 +36,7 @@ class AverageTransitionTime < Dry::Struct
     transition_hash = transition_hash.sort_by {|_key, value| value}.to_h.to_a.reverse.to_h
     transition_hash = transition_hash.inject({}) {|res, i| res[i[0]] = parse_time(i[1]); res}
     transition_cycle.average_transition_hash = transition_hash#.sort_by {|_key, value| value}.to_h.to_a.reverse.to_h
-    transition_cycle.no_of_tickets = result["issues"].size
+    transition_cycle.no_of_tickets = issues.size
     transition_cycle.transition_counter = transition_counter_hash
     transition_cycle
   end
