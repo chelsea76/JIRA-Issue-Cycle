@@ -9,3 +9,6 @@ development: &development
 production:
   adapter: postgresql
   database: jira_prod
+test:
+  adapter: mysql2
+  database: jira_test
