@@ -6,7 +6,7 @@ RSpec.describe "Home page", type: :feature do
     visit '/'
   end
 
-  it "Should not redirect to home page" do
+  it "Should NOT REDIRECT to home page and pass" do
     puts "Test"
   end
 end
