@@ -1,6 +1,6 @@
 class GetFilters
 
-  BASE_URL = "https://coupadev.atlassian.net".freeze
+  BASE_URL = ENV["ATLASSIAN_HOST"].freeze
 
   def call
     url = BASE_URL + "/rest/api/2/filter"
@@ -12,6 +12,6 @@ class GetFilters
   private
 
   def headers
-    { "Authorization" => "Basic ZGlwZXNoLnByYWphcGF0aUBjb3VwYS5jb206UXFHQUZoRmhGTUhRV2JNZW1NbEkwQ0Qz" }
+    { "Authorization" => "Basic #{ENV["API_TOKEN"]}" }
   end
 end
